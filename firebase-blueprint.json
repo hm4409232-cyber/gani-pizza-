@@ -1,0 +1,71 @@
+{
+  "entities": {
+    "Order": {
+      "title": "Order",
+      "description": "Customer order details",
+      "type": "object",
+      "properties": {
+        "customerName": { "type": "string" },
+        "phoneNumber": { "type": "string" },
+        "items": { "type": "array" },
+        "totalAmount": { "type": "number" },
+        "status": { "type": "string", "enum": ["Pending", "Preparing", "Completed"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["customerName", "phoneNumber", "items", "totalAmount", "status", "createdAt"]
+    },
+    "Purchase": {
+      "title": "Purchase",
+      "description": "Ingredient or stock purchase record",
+      "type": "object",
+      "properties": {
+        "itemName": { "type": "string" },
+        "quantity": { "type": "number" },
+        "purchasePrice": { "type": "number" },
+        "totalCost": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["itemName", "quantity", "purchasePrice", "totalCost", "createdAt"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "Customer contact and history",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "phone": { "type": "string" },
+        "totalSpend": { "type": "number" }
+      },
+      "required": ["name", "phone"]
+    },
+    "Expense": {
+      "title": "Expense",
+      "description": "Shop operational expense",
+      "type": "object",
+      "properties": {
+        "category": { "type": "string", "enum": ["Rent", "Salary", "Electricity", "Ingredients", "Other"] },
+        "amount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["category", "amount", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Collection of all customer orders"
+    },
+    "/purchases/{purchaseId}": {
+      "schema": "Purchase",
+      "description": "Collection of all stock purchases"
+    },
+    "/customers/{customerId}": {
+      "schema": "Customer",
+      "description": "Collection of customer records"
+    },
+    "/expenses/{expenseId}": {
+      "schema": "Expense",
+      "description": "Collection of shop expenses"
+    }
+  }
+}
